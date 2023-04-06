@@ -7,16 +7,22 @@
 6. else player loses.
 */
 
-const LISTOFCHOICES = ["ROCK", "PAPER", "SCISSORS"]
+const LISTOFCHOICES = ["ROCK", "PAPER", "SCISSORS"];
+var resultDiv = document.getElementById('outcome-div');
+var playerScore = 0;
+var computerScore = 00;
 
 function getRoundResults(playerSelectionNum, computerSelectionNum) {
     if (playerSelectionNum === computerSelectionNum){
-        return "Tie! " + LISTOFCHOICES[playerSelectionNum] + " and " + LISTOFCHOICES[computerSelectionNum] + " are the same"
+        return "Tie! " + LISTOFCHOICES[playerSelectionNum] + " and " + LISTOFCHOICES[computerSelectionNum] + " are the same";
     }
-    else if (playerSelectionNum === 0 && computerSelectionNum === 2 || playerSelectionNum > computerSelectionNum && computerSelectionNum != 0){
+    else if ((playerSelectionNum === 0 && computerSelectionNum === 2) 
+            || ((playerSelectionNum > computerSelectionNum) && !(playerSelectionNum === 2 && computerSelectionNum === 0))){
+        playerScore ++;
         return "You Win! " + LISTOFCHOICES[playerSelectionNum] + " beats " + LISTOFCHOICES[computerSelectionNum];
     }
     else {
+        computerScore ++;
         return "You Lose! " + LISTOFCHOICES[computerSelectionNum] + " beats " + LISTOFCHOICES[playerSelectionNum];
     }
 }
@@ -33,30 +39,25 @@ function checkIfValidInput(playerSelection) {
     return returnValue;
 }
 
-function makeChoiceInputStringIntoNumber(selectionString) {
-    for (var i = 0; i < LISTOFCHOICES.length; i++){
-        if (selectionString === LISTOFCHOICES[i]) {
-            return i;
-        }
-    }
-}
-
 function getComputerChoice () {
     return Math.floor(Math.random() * 3); 
 }
 
-function playRound () {
-    let playerSelection = prompt("hay dwaddy! Wanna enter Rock, Paper, or Scissors pwease uvu");
-    while (!checkIfValidInput(playerSelection)){
-        playerSelection = prompt("Swory~ dwaddy but, that was not a valid input plwease enter Rock, Paper, or Scissors uwu");
-    }
-    console.log(getRoundResults(makeChoiceInputStringIntoNumber(playerSelection.toUpperCase()), getComputerChoice()));
+function playRound (playerSelection) {
+    resultDiv.innerHTML = getRoundResults(playerSelection, getComputerChoice()) + "(score : " + playerScore + " | " + computerScore;
 }
 
-function playFiveRounds() {
-    for (var i = 0; i < 5; i++){
-        playRound();
-    }
-}
-
-playFiveRounds();
+var rockButton = document.getElementById('rock-button');
+rockButton.addEventListener("click", function() {
+    playRound(0);
+})
+    
+var paperButton = document.getElementById('paper-button');      
+paperButton.addEventListener("click", function() {
+    playRound(1);
+})
+    
+var scissorsButton = document.getElementById('scissors-button');
+scissorsButton.addEventListener("click", function() {
+    playRound(2);
+})
