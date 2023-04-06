@@ -13,12 +13,24 @@ function getRoundResults(playerSelectionNum, computerSelectionNum) {
     if (playerSelectionNum === computerSelectionNum){
         return "Tie! " + LISTOFCHOICES[playerSelectionNum] + " and " + LISTOFCHOICES[computerSelectionNum] + " are the same"
     }
-    else if (playerSelectionNum === 0 && computerSelectionNum === 3 || playerSelectionNum > computerSelectionNum && computerSelectionNum != 0){
+    else if (playerSelectionNum === 0 && computerSelectionNum === 2 || playerSelectionNum > computerSelectionNum && computerSelectionNum != 0){
         return "You Win! " + LISTOFCHOICES[playerSelectionNum] + " beats " + LISTOFCHOICES[computerSelectionNum];
     }
     else {
         return "You Lose! " + LISTOFCHOICES[computerSelectionNum] + " beats " + LISTOFCHOICES[playerSelectionNum];
     }
+}
+
+function checkIfValidInput(playerSelection) {
+    let returnValue = false;
+    playerSelection = playerSelection.toUpperCase();
+    console.log(playerSelection);
+    LISTOFCHOICES.forEach(element => {
+        if (playerSelection === element) {
+            returnValue = true;
+        }
+    })
+    return returnValue;
 }
 
 function makeChoiceInputStringIntoNumber(selectionString) {
@@ -35,7 +47,16 @@ function getComputerChoice () {
 
 function playRound () {
     let playerSelection = prompt("hay dwaddy! Wanna enter Rock, Paper, or Scissors pwease uvu");
+    while (!checkIfValidInput(playerSelection)){
+        playerSelection = prompt("Swory~ dwaddy but, that was not a valid input plwease enter Rock, Paper, or Scissors uwu");
+    }
     console.log(getRoundResults(makeChoiceInputStringIntoNumber(playerSelection.toUpperCase()), getComputerChoice()));
 }
 
-playRound();
+function playFiveRounds() {
+    for (var i = 0; i < 5; i++){
+        playRound();
+    }
+}
+
+playFiveRounds();
