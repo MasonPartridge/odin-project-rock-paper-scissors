@@ -37,6 +37,5 @@ function playRound () {
     let playerSelection = prompt("hay dwaddy! Wanna enter Rock, Paper, or Scissors pwease uvu");
     console.log(getRoundResults(makeChoiceInputStringIntoNumber(playerSelection.toUpperCase()), getComputerChoice()));
 }
-console.log("test");
 
 playRound();
