@@ -10,7 +10,8 @@
 const LISTOFCHOICES = ["ROCK", "PAPER", "SCISSORS"];
 var resultDiv = document.getElementById('outcome-div');
 var playerScore = 0;
-var computerScore = 00;
+var computerScore = 0;
+var isGameOver = false;
 
 function getRoundResults(playerSelectionNum, computerSelectionNum) {
     if (playerSelectionNum === computerSelectionNum){
@@ -44,7 +45,17 @@ function getComputerChoice () {
 }
 
 function playRound (playerSelection) {
-    resultDiv.innerHTML = getRoundResults(playerSelection, getComputerChoice()) + "(score : " + playerScore + " | " + computerScore;
+    if (!isGameOver){
+        resultDiv.innerHTML = getRoundResults(playerSelection, getComputerChoice()) + "(score : " + playerScore + " | " + computerScore + ")";
+    } 
+    if (playerScore >= 5){
+        resultDiv.innerHTML = "You dominated me dwaddy (score : " + playerScore + " | " + computerScore + ")";
+        isGameOver = true;
+    }
+    if (computerScore >= 5){
+        resultDiv.innerHTML = "Dissapointing, thought you were cooler (score : " + playerScore + " | " + computerScore + ")";
+        isGameOver = true;
+    }
 }
 
 var rockButton = document.getElementById('rock-button');
